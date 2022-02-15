@@ -49,7 +49,7 @@ ALIENS_CODE = 36
 ADJECTIVE_CODE = 37
 TASK_END = 99
 #parallel_writer = ctypes.windll.LoadLibrary('inpout32.dll')
-parallel_writer = ctypes.windll.LoadLibrary('C:\stimtool3\inpoutx64.dll')
+parallel_writer = ctypes.windll.LoadLibrary('./inpoutx64.dll')
 
 class GlobalVars:
     #This class will contain all module specific global variables
