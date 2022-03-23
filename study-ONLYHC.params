@@ -1,6 +1,7 @@
 left left
 right right
 select space
+down space
 scan False
 record_video True
 signal_parallel False
