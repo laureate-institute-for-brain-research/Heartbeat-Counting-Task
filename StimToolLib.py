@@ -6,6 +6,12 @@ from shutil import move
 from psychopy.hardware import joystick
 #import CameraDriver.CameraDriver as CD
 import time
+from labjack import ljm
+# Open first found LabJack
+try:
+    handle = ljm.openS("ANY", "ANY", "ANY")
+except:
+    print('not labjack plugged int?')
 
 PARALLEL_DELAY = 0.005 #time to wait when sending pulses to the parallel port
 TRIAL_START_DELAY = 0.005 #test this experimentally--should be the delay between when the run is signalled to BIOPAC and when the clock is reset
@@ -90,6 +96,8 @@ def general_setup(g, winType = 'pyglet'):
    
 def verify_parallel(session_params):
     address = session_params['parallel_port_address']
+    if ('labjack' in address):
+        return # Don't verify for labjack
     while True:
         if check_one_parallel_address(address):
             break #seems to work
@@ -115,6 +123,25 @@ def check_one_parallel_address(address):
     
     
 def write_parallel(port, value):
+    if (value > 255):
+        print('value given is too hight')
+        return
+    if (value < 0):
+        print('value given is too low')
+        return
+    # get Binary Number
+    binary_num = format(value, "08b")
+    print(binary_num)
+    if (port == 'labjackT4'):
+        # is a labjackT$ model
+        for bit in range(8):
+            try:
+                ljm.eWriteName(handle, 'DIO' + str(bit), 5) # write to DAC
+            except Exception as e:
+                print('had issues writing bits')
+                print(e)
+        return
+        
     parallel_writer.Out32(port, value)# 0x3000, value)
     #wait a short time
     

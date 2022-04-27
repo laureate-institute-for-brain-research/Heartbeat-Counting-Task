@@ -13,3 +13,5 @@ allow_instructions_back False
 instruction_volume 0.3
 redirect_output True
 session_id V1
+signal_parallel True
+parallel_port_address labjackT4
