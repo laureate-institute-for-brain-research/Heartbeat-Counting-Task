@@ -14,23 +14,7 @@ except:
     sys.exit(0)
 
 
-def test_wn():
-    """
-    """
-    #print("Initiating White Noise")
-    value = 2.5
-    pin_name = 'DAC0'
-    # Write to Register pin name
-    ljm.eWriteName(handle, pin_name, value)
-    # Read the Register pin Name
-    #print('%s Voltage: %s' % (pin_name, ljm.eReadName(handle, pin_name)))
-    time.sleep(0.04) # waite 40 ms
-    value = 1
-    pin_name = 'DAC0'
-    # Write to Register pin name
-    ljm.eWriteName(handle, pin_name, value)
-    # Read the Register pin Name
-    #print('%s Voltage: %s' % (pin_name, ljm.eReadName(handle, pin_name)))
+
 
 def test_shock():
     # Pulse Rise every 2ms, since DIGITMER has a limit duration of 2ms
@@ -48,23 +32,19 @@ def setPIN(name):
 #print("\neReadName result: ")
 #print("    %s = %f" % (name, result))
 
-def write_Parallel(value):
-    """
-    """
-    if (value > 255):
-        print('value given is too hight')
-        return
-    if (value < 0):
-        print('value given is too low')
-        
-    binary_num = format(value, "08b")
-    print(binary_num)
+
+def clear_bits():
     for bit in range(8):
-        print(bit)
-        if
-    
-    
+        ljm.eWriteName(handle, 'DIO' + str(bit + 4), 0) 
+
+def test_labjack():
+    clear_bits()
+    for value in range(256):
+        print('writing value: ' + value)
+        for bit in range(8):
+            ljm.eWriteName(handle, 'DIO' + str(bit + 4), 5) 
+
+            
+
 if __name__ == '__main__':
-    write_Parallel(0)
-    setPIN('DIO12')
-        
+    test_labjack()

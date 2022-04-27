@@ -136,7 +136,7 @@ def write_parallel(port, value):
         # is a labjackT$ model
         for bit in range(8):
             try:
-                ljm.eWriteName(handle, 'DIO' + str(bit), 5) # write to DAC
+                ljm.eWriteName(handle, 'DIO' + str(bit + 4), 5) # write to DIO
             except Exception as e:
                 print('had issues writing bits')
                 print(e)
