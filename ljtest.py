@@ -61,6 +61,7 @@ def write_Parallel(value):
     print(binary_num)
     for bit in range(8):
         print(bit)
+        if
     
     
 if __name__ == '__main__':
